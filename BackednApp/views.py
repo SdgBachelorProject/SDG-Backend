@@ -1,8 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import auth
 import json
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
