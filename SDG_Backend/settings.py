@@ -80,10 +80,12 @@ DATABASES = {
     'default': {
         #'ENGINE': 'django.db.backends.sqlite3',
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'HOST': 'sdgbackend-server.postgres.database.azure.com',
-        'USER': 'wjrcxwnayj',
-        'PASSWORD': 'BY6Y4060YKIT112T$'
+        'NAME': 'sdgappdbserver',
+        'HOST': 'sdgappdbserver.postgres.database.azure.com',
+        'USER': 'postgres@sdgappdbserver',
+        'PASSWORD': 'FuckAzure!',
+        'PORT': '5432',
+        'OPTIONS' : {"sslmode": "require"}
         
         
     }
