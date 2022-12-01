@@ -85,7 +85,7 @@ DATABASES = {
         'USER': 'postgres@sdgappdbserver',
         'PASSWORD': 'FuckAzure!',
         'PORT': '5432',
-        'OPTIONS' : {"sslmode": "require"}
+        
         
         
     }
