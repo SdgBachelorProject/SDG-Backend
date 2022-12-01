@@ -81,10 +81,10 @@ DATABASES = {
         #'ENGINE': 'django.db.backends.sqlite3',
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'pawskrz97',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'USER': 'wjrcxwnayj',
+        'PASSWORD': 'BY6Y4060YKIT112T$',
+        'HOST': 'sdgbackend-server',
+        
     }
 }
 
