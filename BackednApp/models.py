@@ -1,26 +1,46 @@
 from django.db import models
 
 # Create your models here.
+
+
+class League(models.Model):
+    rankName = models.CharField(max_length=10)
+    minRankPoints = models.IntegerField(default=1)
+    maxRankPoints = models.IntegerField(default=1)
+    
 class User(models.Model):
     uid = models.CharField(max_length=100, primary_key=True)
     email = models.CharField(max_length=200)
     username = models.CharField(max_length=200)
     friends = models.ManyToManyField("self", null=True)
+    league = models.ForeignKey(League, on_delete=models.CASCADE, null=True)
     def __str__(self) -> str:
         return self.username
 
-class League(models.Model):
-    rankName = models.CharField(max_length=10)
-    minRankPoints = models.IntegerField()
-    maxRankPoints = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class WaterConsumption(models.Model):
-    waterSourceName = models.CharField(max_length=15)
-    waterConsumptionPerHour = models.IntegerField()
-    unit = models.CharField(max_length=5)
-    hoursOfUsage = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    bathsPerWeek = models.IntegerField(default=1)
+    singleShowerDuration = models.IntegerField(default=1)
+    numberOfShowerPerWeek = models.IntegerField(default=1)
+    hasDishwasher = models.BooleanField(default=True)
+    numberOfDishwashesPerWeek = models.IntegerField(default=1)
+    numberOfWashingMachineUsage = models.IntegerField(default=1)
+    waterConsumption = models.IntegerField(default=1)
+
+    @property
+    def consumptionCalculations(self):
+        if(self.hasDishwasher == True):
+            totalConsumption = self.bathsPerWeek*15 + self.singleShowerDuration*6*self.numberOfShowerPerWeek + self.numberOfDishwashesPerWeek*3 + self.numberOfDishwashesPerWeek*4
+            return totalConsumption
+        if(self.hasDishwasher == False):
+            totalConsumption = self.bathsPerWeek*15 + self.singleShowerDuration*6*self.numberOfShowerPerWeek + self.numberOfDishwashesPerWeek*5 + self.numberOfDishwashesPerWeek*4
+            return totalConsumption
+        else:
+            return 0
+
+    def save(self, *args, **kwargs):
+          self.waterConsumption = self.consumptionCalculations
+          super(WaterConsumption, self).save(*args, **kwargs)
 
 class ElectrictyConsumption(models.Model):
     hoursOfPhoneUsage = models.IntegerField(default=1)
@@ -40,11 +60,29 @@ class ElectrictyConsumption(models.Model):
           super(ElectrictyConsumption, self).save(*args, **kwargs)
     
 class HeatingConsumption(models.Model):
-    temperatureInYourHoushold = models.IntegerField()
-    electricityConsumptionPerHour = models.IntegerField()
-    unit = models.CharField(max_length=5)
-    hoursOfUsage = models.IntegerField()
+    temperatureInYourHoushold = models.IntegerField(default=1)
+    numberOfRooms = models.IntegerField(default=1)
+    buildingType = models.IntegerField(default=1)
+    heatingConsumption = models.IntegerField(default=1)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    @property
+    def consumptionCalculations(self):
+        if(self.buildingType == 1 ):
+            totalConsumption = (self.temperatureInYourHoushold*0.0586 + self.numberOfRooms*0.01) * 2 
+            return totalConsumption
+        if(self.buildingType == 2 ):
+            totalConsumption = (self.temperatureInYourHoushold*0.0586 + self.numberOfRooms*0.01) * 3 
+            return totalConsumption
+        if(self.buildingType == 3 ):
+            totalConsumption = (self.temperatureInYourHoushold*0.0586 + self.numberOfRooms*0.01) * 4 
+            return totalConsumption
+        else:
+            return 0
+
+    def save(self, *args, **kwargs):
+          self.heatingConsumption = self.consumptionCalculations
+          super(HeatingConsumption, self).save(*args, **kwargs)
 
 class Quiz(models.Model):
     learnigPathNumber = models.IntegerField()
