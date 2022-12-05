@@ -32,7 +32,7 @@ class ElectrictyConsumption(models.Model):
 
     @property
     def consumptionCalculations(self):
-        totalConsumption = self.hoursOfPhoneUsage + self.hoursOfComputerUsage + self.hoursOfTVUsage
+        totalConsumption = self.hoursOfPhoneUsage*0.0586 + self.hoursOfComputerUsage*0.01 + self.hoursOfTVUsage*0.055 + 5
         return totalConsumption
 
     def save(self, *args, **kwargs):
