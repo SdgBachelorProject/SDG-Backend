@@ -23,11 +23,21 @@ class WaterConsumption(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class ElectrictyConsumption(models.Model):
-    electricitySourceName = models.CharField(max_length=15)
-    electricityConsumptionPerHour = models.IntegerField()
-    unit = models.CharField(max_length=5)
-    hoursOfUsage = models.IntegerField()
+    hoursOfPhoneUsage = models.IntegerField(default=1)
+    hoursOfComputerUsage = models.IntegerField(default=1)
+    hoursOfTVUsage = models.IntegerField(default=1)
+    electricityConsumption = models.IntegerField(default=1)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+    @property
+    def consumptionCalculations(self):
+        totalConsumption = self.hoursOfPhoneUsage + self.hoursOfComputerUsage + self.hoursOfTVUsage
+        return totalConsumption
+
+    def save(self, *args, **kwargs):
+          self.electricityConsumption = self.consumptionCalculations
+          super(ElectrictyConsumption, self).save(*args, **kwargs)
     
 class HeatingConsumption(models.Model):
     temperatureInYourHoushold = models.IntegerField()
@@ -57,8 +67,6 @@ class Quiz_answer(models.Model):
 
 class Take(models.Model):
     score = models.IntegerField()
-    startedAt = models.DateTimeField()
-    finishedAt = models.DateTimeField()
     content = models.CharField(max_length=250)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
