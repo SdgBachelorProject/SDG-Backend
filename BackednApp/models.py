@@ -48,7 +48,7 @@ class ElectrictyConsumption(models.Model):
     hoursOfPhoneUsage = models.IntegerField(default=1)
     hoursOfComputerUsage = models.IntegerField(default=1)
     hoursOfTVUsage = models.IntegerField(default=1)
-    electricityConsumption = models.IntegerField(default=1)
+    electricityConsumption = models.DecimalField(default=1, decimal_places=2)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
