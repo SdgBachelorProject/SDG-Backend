@@ -24,7 +24,7 @@ def ApiOverview(request):
         'Add Users': '/user/create',
         'Update Users': '/user/pk/update',
         'Delete Users': '/user/pk/delete',
-        'Get Electricty Consumption': '/allelectricty',
+        'Get Electricty Consumption': '/allelectricities',
         'Add Electricty Consumption': '/electricity/create',
         'Update Electricty Consumption': '/electricity/pk/update',
         'Delete Electricty Consumption': '/electricity/pk/delete',
@@ -32,6 +32,14 @@ def ApiOverview(request):
         'Add Water Consumption': '/water/create',
         'Update Water Consumption': '/water/pk/update',
         'Delete Water Consumption': '/water/pk/delete',
+        'Get Heating Consumption': '/allheatings',
+        'Add Heating Consumption': '/heating/create',
+        'Update Heating Consumption': '/heating/pk/update',
+        'Delete Heating Consumption': '/heating/pk/delete',
+        'Get League': '/allleague',
+        'Add League': '/league/create',
+        'Update League': '/league/pk/update',
+        'Delete League': '/league/pk/delete',
     }
   
     return Response(api_urls)
