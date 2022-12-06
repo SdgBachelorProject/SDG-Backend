@@ -5,7 +5,7 @@ from .models import *
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['uid', 'email', 'username', 'friends']
+        fields = ['uid', 'email', 'username']
 
 class ElectricitySerializer(serializers.ModelSerializer):
     class Meta:

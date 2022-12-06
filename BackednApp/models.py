@@ -16,6 +16,8 @@ class User(models.Model):
     league = models.ForeignKey(League, on_delete=models.CASCADE, null=True)
     def __str__(self) -> str:
         return self.username
+    def is_active(self):
+        return True
 
 
 class WaterConsumption(models.Model):
