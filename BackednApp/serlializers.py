@@ -15,7 +15,7 @@ class ElectricitySerializer(serializers.ModelSerializer):
 class WaterSerializer(serializers.ModelSerializer):
     class Meta:
         model = WaterConsumption
-        fields = ['waterSourceName', 'waterConsumptionPerHour', 'unit', 'hoursOfUsage', 'user']
+        fields = '__all__'
 
 class HeatingSerializer(serializers.ModelSerializer):
     class Meta:
