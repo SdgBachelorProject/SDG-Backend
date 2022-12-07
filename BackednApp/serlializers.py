@@ -1,11 +1,14 @@
 from django.db.models import fields
 from rest_framework import serializers
+from django.contrib.postgres import PostgresUpsertMixin
 from .models import *
   
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(PostgresUpsertMixin,serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['uid', 'email', 'username']
+
+    on_conflict_do_nothing = True
 
 class ElectricitySerializer(serializers.ModelSerializer):
     class Meta:
