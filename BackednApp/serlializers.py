@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ElectricitySerializer(serializers.ModelSerializer):
     class Meta:
         model = ElectrictyConsumption
-        fields = ['hoursOfPhoneUsage', 'hoursOfComputerUsage', 'hoursOfTVUsage', 'user']
+        fields = '__all__'
 
 class WaterSerializer(serializers.ModelSerializer):
     class Meta:

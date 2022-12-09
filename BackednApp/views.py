@@ -9,6 +9,10 @@ from rest_framework import serializers
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
+from django.db import connection
+from django.http import JsonResponse
+from django.views.generic import CreateView
+
 
 # Create your views here.
 
@@ -47,7 +51,8 @@ def ApiOverview(request):
 class UserCreate(generics.CreateAPIView):
     # API endpoint that allows creation of a new customer
     queryset = User.objects.all(),
-    serializer_class = UserSerializer
+    serializer_class = UserSerializer 
+
 
 class UserUpdate(generics.RetrieveUpdateAPIView):
     # API endpoint that allows a customer record to be updated.
@@ -69,6 +74,7 @@ def view_users(request):
         return Response(data.data)
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
 
 @api_view(['DELETE'])
 def delete_user(request, pk):

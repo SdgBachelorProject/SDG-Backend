@@ -28,6 +28,7 @@ class WaterConsumption(models.Model):
     numberOfDishwashesPerWeek = models.IntegerField(default=1)
     numberOfWashingMachineUsage = models.IntegerField(default=1)
     waterConsumption = models.IntegerField(default=1)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 
     @property
     def consumptionCalculations(self):
@@ -48,8 +49,8 @@ class ElectrictyConsumption(models.Model):
     hoursOfPhoneUsage = models.IntegerField(default=1)
     hoursOfComputerUsage = models.IntegerField(default=1)
     hoursOfTVUsage = models.IntegerField(default=1)
-    electricityConsumption = models.DecimalField(default=1, decimal_places=2)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    electricityConsumption = models.DecimalField(default=1, decimal_places=2,max_digits=10)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 
 
     @property
@@ -66,7 +67,7 @@ class HeatingConsumption(models.Model):
     numberOfRooms = models.IntegerField(default=1)
     buildingType = models.IntegerField(default=1)
     heatingConsumption = models.IntegerField(default=1)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 
     @property
     def consumptionCalculations(self):
