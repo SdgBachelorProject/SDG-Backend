@@ -27,7 +27,7 @@ class WaterConsumption(models.Model):
     hasDishwasher = models.BooleanField(default=True)
     numberOfDishwashesPerWeek = models.IntegerField(default=1)
     numberOfWashingMachineUsage = models.IntegerField(default=1)
-    waterConsumption = models.IntegerField(default=1)
+    waterConsumption = models.DecimalField(default=1, decimal_places=2,max_digits=10)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 
     @property
@@ -66,7 +66,7 @@ class HeatingConsumption(models.Model):
     temperatureInYourHoushold = models.IntegerField(default=1)
     numberOfRooms = models.IntegerField(default=1)
     buildingType = models.IntegerField(default=1)
-    heatingConsumption = models.IntegerField(default=1)
+    heatingConsumption = models.DecimalField(default=1, decimal_places=2,max_digits=10)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 
     @property

@@ -58,6 +58,7 @@ class UserUpdate(generics.RetrieveUpdateAPIView):
     # API endpoint that allows a customer record to be updated.
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    
 
 @api_view(['GET'])
 def view_users(request):
@@ -94,6 +95,21 @@ class ElectrictyUpdate(generics.RetrieveUpdateAPIView):
     queryset = ElectrictyConsumption.objects.all()
     serializer_class = ElectricitySerializer
 
+    def get_object(self):
+        uid = self.kwargs.get('uid')
+        user_id = get_object_or_404(User, pk=uid)
+        return get_object_or_404(ElectrictyConsumption, user_id=user_id)
+
+    def update(self, request, *args, **kwargs):
+        uid = self.kwargs.get('uid')
+        user_id = get_object_or_404(User, pk=uid)
+        electricitymodel = get_object_or_404(ElectrictyConsumption, user_id=user_id)
+        serializer = self.get_serializer(electricitymodel, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        return Response(serializer.data)
+
 class ElectricityDelete(generics.RetrieveDestroyAPIView):
     # API endpoint that allows a customer record to be deleted.
     queryset = ElectrictyConsumption.objects.all()
@@ -101,22 +117,6 @@ class ElectricityDelete(generics.RetrieveDestroyAPIView):
 
 @api_view(['GET'])
 def view_electricity_consumption(request):
-    
-    # checking for the parameters from the URL
-    if request.query_params:
-        view_electricity_consumption = ElectrictyConsumption.objects.filter(**request.query_params.dict())
-    else:
-        view_electricity_consumption = ElectrictyConsumption.objects.all()
-  
-    # if there is something in items else raise error
-    if view_electricity_consumption:
-        data = ElectricitySerializer(view_electricity_consumption, many=True)
-        return Response(data.data)
-    else:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-@api_view(['GET'])
-def get_(request):
     
     # checking for the parameters from the URL
     if request.query_params:
@@ -142,6 +142,21 @@ class WaterUpdate(generics.RetrieveUpdateAPIView):
     # API endpoint that allows a customer record to be updated.
     queryset = WaterConsumption.objects.all()
     serializer_class = WaterSerializer
+
+    def get_object(self):
+        uid = self.kwargs.get('uid')
+        user_id = get_object_or_404(User, pk=uid)
+        return get_object_or_404(WaterConsumption, user_id=user_id)
+
+    def update(self, request, *args, **kwargs):
+        uid = self.kwargs.get('uid')
+        user_id = get_object_or_404(User, pk=uid)
+        watermodel = get_object_or_404(WaterConsumption, user_id=user_id)
+        serializer = self.get_serializer(watermodel, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        return Response(serializer.data)
 
 class WaterDelete(generics.RetrieveDestroyAPIView):
     # API endpoint that allows a customer record to be deleted.
@@ -175,6 +190,21 @@ class HeatingUpdate(generics.RetrieveUpdateAPIView):
     # API endpoint that allows a customer record to be updated.
     queryset = HeatingConsumption.objects.all()
     serializer_class = HeatingSerializer
+
+    def get_object(self):
+        uid = self.kwargs.get('uid')
+        user_id = get_object_or_404(User, pk=uid)
+        return get_object_or_404(HeatingConsumption, user_id=user_id)
+
+    def update(self, request, *args, **kwargs):
+        uid = self.kwargs.get('uid')
+        user_id = get_object_or_404(User, pk=uid)
+        heatingmodel = get_object_or_404(HeatingConsumption, user_id=user_id)
+        serializer = self.get_serializer(heatingmodel, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        return Response(serializer.data)
 
 class HeatingDelete(generics.RetrieveDestroyAPIView):
     # API endpoint that allows a customer record to be deleted.
