@@ -8,24 +8,12 @@ import json
 
 class UserSerializer(serializers.ModelSerializer):
 
-    friends = serializers.StringRelatedField(many=True)
+    
     class Meta:
         model = User
-        fields = ('uid', 'email', 'username', 'friends', 'league')
+        fields = '__all__'
 
-class FriendsSerializer(UserSerializer):
-    def to_representation(self, value):
-        user_data = super().to_representation(value)
-        user_json = json.dumps(user_data)
-        user_dict = json.loads(user_json)
-        friends = user_dict['friends']
-        friends_json = json.dumps(friends)
-        friends_list = json.loads(friends_json)
-        user_dict['friends'] = friends_list
-        return user_dict
 
-    class Meta(UserSerializer.Meta):
-        fields = UserSerializer.Meta.fields + ('friends',)
 
 
 

@@ -9,6 +9,7 @@ urlpatterns = [
     path('allusers/', views.view_users, name='view_users'),
     path('user/<str:pk>/update/', views.UserUpdate.as_view(), name='update_users'),
     path('user/<str:pk>/delete/', views.delete_user, name='delete_user'),
+    path('user/<str:uid>/friends', views.friends_view, name='view_friends'),
     path('electricity/create/', views.ElectricityCreate.as_view(), name='add-electricity'),
     path('allelectricities/', views.view_electricity_consumption, name='view_electricity'),
     path('electricity/<str:uid>/update/', views.ElectrictyUpdate.as_view(), name='update_electricity'), 

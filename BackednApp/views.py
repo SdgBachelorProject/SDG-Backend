@@ -12,7 +12,7 @@ from rest_framework import generics
 from django.db import connection
 from django.http import JsonResponse
 from django.views.generic import CreateView
-
+from django.core.serializers import serialize
 
 # Create your views here.
 
@@ -53,28 +53,37 @@ class UserCreate(generics.CreateAPIView):
     queryset = User.objects.all(),
     serializer_class = UserSerializer 
 
-
 class UserUpdate(generics.RetrieveUpdateAPIView):
     # API endpoint that allows a customer record to be updated.
     queryset = User.objects.all()
     serializer_class = UserSerializer
     
+@api_view(['GET'])
+def friends_view(request, uid):
+    user = User.objects.get(pk=uid)
+    friends = user.friends.all()
+    if friends:
+        data = UserSerializer(friends, many=True)
+        return Response(data.data)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET'])
 def view_users(request):
     # Query the database for the user and their friends
-    users = User.objects.prefetch_related('friends').order_by('uid')
-
     # checking for the parameters from the URL
     if request.query_params:
-        users = users.filter(**request.query_params.dict())
-
+        view_electricity_consumption = User.objects.filter(**request.query_params.dict())
+    else:
+        view_electricity_consumption = User.objects.all()
+  
     # if there is something in items else raise error
-    if users:
-        serializer = FriendsSerializer(users, many=True)
-        return Response(serializer.data)
+    if view_electricity_consumption:
+        data = UserSerializer(view_electricity_consumption, many=True)
+        return Response(data.data)
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
 
 @api_view(['DELETE'])
 def delete_user(request, pk):
