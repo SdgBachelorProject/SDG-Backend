@@ -1,13 +1,33 @@
 from django.db.models import fields
 from rest_framework import serializers
 from .models import *
-  
+import json
+
+
+
+
 class UserSerializer(serializers.ModelSerializer):
+
+    friends = serializers.StringRelatedField(many=True)
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('uid', 'email', 'username', 'friends', 'league')
 
-    
+class FriendsSerializer(UserSerializer):
+    def to_representation(self, value):
+        user_data = super().to_representation(value)
+        user_json = json.dumps(user_data)
+        user_dict = json.loads(user_json)
+        friends = user_dict['friends']
+        friends_json = json.dumps(friends)
+        friends_list = json.loads(friends_json)
+        user_dict['friends'] = friends_list
+        return user_dict
+
+    class Meta(UserSerializer.Meta):
+        fields = UserSerializer.Meta.fields + ('friends',)
+
+
 
 class ElectricitySerializer(serializers.ModelSerializer):
     class Meta:

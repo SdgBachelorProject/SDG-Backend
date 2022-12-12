@@ -14,8 +14,7 @@ class User(models.Model):
     username = models.CharField(max_length=200)
     friends = models.ManyToManyField("self", null=True)
     league = models.ForeignKey(League, on_delete=models.CASCADE, null=True)
-    def __str__(self) -> str:
-        return self.uid
+    
     
 
 

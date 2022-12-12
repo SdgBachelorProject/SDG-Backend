@@ -62,20 +62,19 @@ class UserUpdate(generics.RetrieveUpdateAPIView):
 
 @api_view(['GET'])
 def view_users(request):
-    
+    # Query the database for the user and their friends
+    users = User.objects.prefetch_related('friends').order_by('uid')
+
     # checking for the parameters from the URL
     if request.query_params:
-        users = User.objects.filter(**request.query_params.dict())
-    else:
-        users = User.objects.all()
-  
+        users = users.filter(**request.query_params.dict())
+
     # if there is something in items else raise error
     if users:
-        data = UserSerializer(users, many=True)
-        return Response(data.data)
+        serializer = FriendsSerializer(users, many=True)
+        return Response(serializer.data)
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
-
 
 @api_view(['DELETE'])
 def delete_user(request, pk):
