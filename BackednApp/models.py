@@ -90,8 +90,7 @@ class Quiz(models.Model):
     title = models.CharField(max_length=100)
     score = models.IntegerField()
     content = models.CharField(max_length=250)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    
 class Quiz_question(models.Model):
     level = models.IntegerField()
     score = models.IntegerField()
