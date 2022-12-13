@@ -12,8 +12,8 @@ class User(models.Model):
     uid = models.CharField(max_length=100, primary_key=True)
     email = models.CharField(max_length=200)
     username = models.CharField(max_length=200)
-    friends = models.ManyToManyField("self", null=True)
-    league = models.ForeignKey(League, on_delete=models.CASCADE, null=True)
+    friends = models.ManyToManyField("self", null=True, blank=True)
+    league = models.ForeignKey(League, on_delete=models.CASCADE, null=True, blank=True)
     
     
 
