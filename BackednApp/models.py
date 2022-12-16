@@ -15,7 +15,8 @@ class User(models.Model):
     friends = models.ManyToManyField("self", null=True, blank=True)
     league = models.ForeignKey(League, on_delete=models.CASCADE, null=True, blank=True)
     
-    
+    def is_active(self):
+            return True   
 
 
 class WaterConsumption(models.Model):

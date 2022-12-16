@@ -99,7 +99,7 @@ class ElectricityCreate(generics.CreateAPIView):
     serializer_class = ElectricitySerializer
 
 class ElectrictyUpdate(generics.RetrieveUpdateAPIView):
-    # API endpoint that allows a customer record to be updated.
+    # API endpoint that allows a ElectrictyConsumption record to be updated.
     queryset = ElectrictyConsumption.objects.all()
     serializer_class = ElectricitySerializer
 
@@ -407,7 +407,7 @@ class TakeAnswerCreate(generics.CreateAPIView):
     # API endpoint that allows creation of a new customer
     queryset = Take_answer.objects.all(),
     serializer_class = TakeAnswerSerializer
-
+    
 class TakeAnswerUpdate(generics.RetrieveUpdateAPIView):
     # API endpoint that allows a customer record to be updated.
     queryset = Take_answer.objects.all()

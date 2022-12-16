@@ -14,9 +14,6 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-
-
-
 class ElectricitySerializer(serializers.ModelSerializer):
     class Meta:
         model = ElectrictyConsumption

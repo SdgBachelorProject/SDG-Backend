@@ -23,9 +23,9 @@ TEMPLATE_DIR = Path(BASE_DIR,'templates')
 SECRET_KEY = 'django-insecure-4*=db+m!90$&z&m@y2va$3$y)$*e1-972q_+ht0fmcj93t*)bn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['sdgbackendapp.azurewebsites.net']
 
 
 # Application definition
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'BackednApp.apps.BackednappConfig',
-    
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +132,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+GRAPH_MODELS = {
+    "all_applications": True,
+    "group_models": True,
+}
