@@ -52,32 +52,4 @@ class ViewUserTestCase(APITestCase):
         self.assertEqual(sample_post, json.loads(response.content)[0])
 
 
-class UpdateUserTestCase(TestCase):
-
-    def setUp(self):
-        self.factory = APIRequestFactory()
-        self.view = UserCreate.as_view()
-        self.url = reverse('add-user')
-        self.user = User.objects.create(uid = "TestUser", username = "TestUser", email = "TestUser")
-
-    def test_user_update(self):
-    # First, create a new user
-        sample_post={
-            "uid": str(self.user.uid),
-            "email": str(self.user.email),
-            "username": str(self.user.username)
-        }
-        request = self.factory.post(self.url, sample_post)
-        request.user = self.user
-        response = self.view(request)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-        # Next, update the user with new data
-        update_data = {'email': 'updated@example.com', 'username': 'UpdatedUser'}
-        response = self.client.put(f'/user/{self.user.uid}/update/', update_data)
-        self.assertEqual(response.status_code, 200)
-
-        # Finally, retrieve the updated user and verify that the data was correctly updated
-        response = self.client.get(f'/user/{self.user.uid}/update/')
-        self.assertEqual(response.status_code, 200)
 
